@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>bah-integrations-list demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../bah-integrations-list.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <h2>Basic bah-integrations-list demo</h2>
+        <demo-snippet>
+            <template>
+                <template id="scope" is="dom-bind">
+                        <bah-integrations-list id="list" system-anchor='e88a6523-06a3-477d-8d75-9bcc6617491f' items="[[mockItems]]">
+                        </bah-integrations-list>
+                </template>
+                <script>
+                    document.addEventListener('WebComponentsReady', function () {
+                      console.log('ready, ready, ready!');
+                        var list = document.querySelector('#list');
+                        var scope = document.querySelector('#scope');
+
+                        scope.mockItems = [
+                          {
+                            "id": 504,
+                            "name": "Raise alerts from EDHR Defects",
+                            "system_id": 4,
+                            "action_id": 4,
+                            "del_flg": "N",
+                            "data_map": null,
+                            "system_anchor_id": "4b9213de-75a4-49d2-9b31-77124fe84bdc",
+                            "direction": "inbound",
+                            "target_system": "eandon",
+                            "source_system": "edhr",
+                            "integration_id": 504
+                          },
+                          {
+                            "id": 505,
+                            "name": "Create work orders in inforEAM",
+                            "system_id": 2,
+                            "action_id": 5,
+                            "del_flg": "N",
+                            "data_map": {},
+                            "system_anchor_id": "4b9213de-75a4-49d2-9b31-77124fe84bdc",
+                            "direction": "",
+                            "target_system": "infoream",
+                            "source_system": "eandon",
+                            "integration_id": 505
+                          }
+                        ];
+                        list.addEventListener('bah-integration-item-tap', function(e){
+                            console.log(e);
+                        });
+                        list.addEventListener('bah-integration-item-edit', function(e){
+                            console.log(e);
+                        });
+                        list.addEventListener('bah-integration-item-delete', function(e){
+                            console.log(e);
+                        });
+                    });
+                </script>
+
+            </template>
+        </demo-snippet>
+    </div>
+    <div class="">
+        <h2>Basic bah-integrations-list empty</h2>
+        <demo-snippet>
+            <template>
+                <template id="scope2" is="dom-bind">
+                        <bah-integrations-list items="[[mockItems]]">
+                        </bah-integrations-list>
+                </template>
+                <script>
+                    document.addEventListener('WebComponentsReady', function () {
+                        var scope = document.querySelector('#scope2');
+                        //scope.mockItems = []
+                    });
+                </script>
+
+            </template>
+        </demo-snippet>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../px-icon-set/px-icon-set.html"/>
+<link rel="import" href="../integration-service/integration-service.html"/>
+<link rel="import" href="css/bah-integrations-list-styles.html">
+
+
+<!--
+`bah-integrations-list`
+
+The bah-integrations-list is a starter Polymer seed for Brilliant Apps Hub Polymer components.
+
+@demo demo/bah-integrations-list-demo.html
+-->
+<iron-iconset-svg name="polymer-font-awesome"  size="1792">
+  <svg>
+    <defs>
+        <g id="fa-pencil" transform="scale(1 -1) translate(0 -1536)"><path
+            d="M363 0l91 91l-235 235l-91 -91v-107h128v-128h107zM886 928q0 22 -22 22q-10 0 -17 -7l-542 -542q-7 -7 -7 -17q0 -22 22 -22q10 0 17 7l542 542q7 7 7 17zM832 1120l416 -416l-832 -832h-416v416zM1515 1024q0 -53 -37 -90l-166 -166l-416 416l166 165q36 38 90 38 q53 0 91 -38l235 -234q37 -39 37 -91z"/></g>
+
+        <g id="fa-trash" transform="scale(1 -1) translate(192 -1536)"><path
+            d="M512 160v704q0 14 -9 23t-23 9h-64q-14 0 -23 -9t-9 -23v-704q0 -14 9 -23t23 -9h64q14 0 23 9t9 23zM768 160v704q0 14 -9 23t-23 9h-64q-14 0 -23 -9t-9 -23v-704q0 -14 9 -23t23 -9h64q14 0 23 9t9 23zM1024 160v704q0 14 -9 23t-23 9h-64q-14 0 -23 -9t-9 -23v-704 q0 -14 9 -23t23 -9h64q14 0 23 9t9 23zM480 1152h448l-48 117q-7 9 -17 11h-317q-10 -2 -17 -11zM1408 1120v-64q0 -14 -9 -23t-23 -9h-96v-948q0 -83 -47 -143.5t-113 -60.5h-832q-66 0 -113 58.5t-47 141.5v952h-96q-14 0 -23 9t-9 23v64q0 14 9 23t23 9h309l70 167 q15 37 54 63t79 26h320q40 0 79 -26t54 -63l70 -167h309q14 0 23 -9t9 -23z"/></g>
+    </defs>
+    </svg>
+</iron-iconset-svg>
+
+<dom-module id="bah-integrations-list">
+
+    <template>
+      <style include="bah-integrations-list-styles"></style>
+        <integration-service id="integrationService"></integration-service>
+        <div class="bah-integrations u-pl+ u-pr+ u-pt+ u-pb+">
+        <header  class="u-mb flex flex--middle flex--justify">
+            <h3 id="listHeader" class="caps u-mv0 ng-binding">[[title]]</h3>
+          </header>
+            <ul class="bah-integrations__list">
+
+                <template is="dom-if" if="{{!_checkLength(items)}}">
+                    <li class="bah-integrations__list-item u-p flex flex--middle">
+                        <span>[[emptyMessage]]</span>
+                    </li>
+                </template>
+
+                <template is="dom-repeat" items="[[items]]">
+                    <li on-tap="_handleTap" class="bah-integrations__list-item u-p flex flex--middle flex--justify">
+                        <div class="flex flex--middle">
+                            <iron-icon class="fa fa-bell fa-2x" style="color:#5c7184" icon="px-nav:notification"></iron-icon>
+                            <template is="dom-if" if="{{!_isInbound(item.target_system)}}">
+                              <span class='directionArrow'>&rarr;</span>
+                            </template>
+                            <template is="dom-if" if="{{_isInbound(item.target_system)}}">
+                              <span class='directionArrow'>&larr;</span>
+                            </template>
+                            <img src="{{_getLogo(item.target_system,item.source_system)}}"
+                              alt="{{item.name}}" class="u-mr" />
+                            <span class="integrationTitle">{{item.name}}</span>
+                        </div>
+                        <div class="flex flex--middle">
+                            <a href="#" on-tap="_handleEdit" title="Edit">
+                                <iron-icon class='integrationIcon' icon="polymer-font-awesome:fa-pencil"></iron-icon>
+                            </a>
+                            <!-- <a href="#" on-tap="_handleDelete" title="Delete">
+                                <iron-icon class='integrationIcon' icon="polymer-font-awesome:fa-trash"></iron-icon>
+                            </a> -->
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </template>
+    <script type="text/javascript" src="js/bah-integrations-list.js"></script>
+</dom-module>

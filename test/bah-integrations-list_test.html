@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>bah-integrations-list test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../bah-integrations-list.html">
+  </head>
+  <body>
+    <test-fixture id="basic">
+      <template>
+        <bah-integrations-list></bah-integrations-list>
+      </template>
+    </test-fixture>
+    <script>
+
+    describe('instantiating', function () {
+      it('should instantiate without errors', function() {
+        var element = fixture('basic');
+        assert.equal(element.is, 'bah-integrations-list');
+        });
+      });
+
+    describe('_handleTap unit tests', function () {
+      var element = fixture('basic');
+      var fire_stub = sinon.stub(element,'fire');
+
+      it('should fire the appropriate event', function() {
+        var element = fixture('basic');
+        element._handleTap({});
+        expect(fire_stub).to.have.been.called;
+      });
+    });
+
+    describe('_handleEdit unit tests', function () {
+      var element = fixture('basic');
+      var fire_stub = sinon.stub(element,'fire');
+
+      it('should fire the appropriate event', function() {
+        element._handleTap({});
+        expect(fire_stub).to.have.been.called;
+      });
+
+    });
+
+    describe('_handleDelete  unit tests', function () {
+      var element = fixture('basic');
+      var fire_stub = sinon.stub(element,'fire');
+
+      it('should fire the appropriate event', function() {
+        element._handleTap({});
+        expect(fire_stub).to.have.been.called;
+      });
+
+    });
+
+    describe('_isInbound  unit tests', function () {
+      var element = fixture('basic');
+
+      it('should return false if the target system is not eandon', function(){
+        var result = element._isInbound('infoream');
+        assert.equal(result,false);
+      })
+
+      it('should return true if the target system is eandon', function(){
+        var result = element._isInbound('eandon');
+        assert.equal(result,true);
+      })
+
+    });
+
+    describe('_getLogo unit tests', function () {
+      var element = fixture('basic');
+      it('should return the infoream logo if the target system is infoream', function(){
+        var result = element._getLogo('infoream','eandon');
+        assert.equal(result,t'https://s3-us-west-2.amazonaws.com/s.cdpn.io/49212/infor-img.png');
+      })
+      it('should return the edhr logo if the source system is edhr', function(){
+        var result = element._getLogo('eandon','edhr');
+        assert.equal(result,'https://s3-us-west-2.amazonaws.com/s.cdpn.io/49212/edhr-img.png');
+
+      })
+
+    });
+
+    describe('_fetchIntegrations unit tests', function () {
+      var element = fixture('basic');
+      var xhr;
+      var requests;
+
+      beforeEach(function(){
+        xhr = sinon.useFakeXMLHttpRequest();
+        requests=[];
+        xhr.onCreate = function(xhr){
+          requests.push(xhr);
+        }
+      });
+
+      afterEach(function(){
+        xhr.restore();
+      });
+
+      it('should assign the items attribute if the integration service doesnt fail', function(done){
+        promise = element._fetchIntegrations('123');
+        respond(request[0],200,[{'name':'test'}]);
+        promise.then(function(){
+          flush(function(){
+            assert.isOk(element.items);
+            assert.deepEqual(element.items,[{'name':'test'}]);
+            done();
+          })
+        })
+      });
+
+    });
+
+    describe('_systemAnchorChanged  unit tests', function () {
+      var element = fixture('basic');
+      var fetchIntegrations_stub = sinon.stub(element,'_fetchIntegrations');
+      it('should not call fetch integrations if the binding string literal is passed', function(){
+        element._systemAnchorChanged('{{selectedSite.id}}');
+        expect(fetchIntegrations_stub).to.have.not.been.called;
+      })
+      it('should call fetch integrations', function(){
+        element._systemAnchorChanged('12345');
+        expect(fetchIntegrations_stub).to.have.been.called;
+      })
+    });
+  });
+    </script>
+  </body>
+</html>
