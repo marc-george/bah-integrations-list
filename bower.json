@@ -9,7 +9,7 @@
     "px-spacing-design": "^0.4.4",
     "px-widths-design": "^0.3.21",
     "px-modal": "1.2.0",
-    "polymer-font-awesome": "https://github.com/jonniespratley/polymer-font-awesome.git#^0.1.9",
+    "polymer-font-awesome": "https://github.com/garryyao/px-polymer-font-awesome#^0.1.9",
     "px-icon-set": "^1.0.0",
     "integration-service": "https://github.com/marc-george/integration-service-master.git#main"
   },
