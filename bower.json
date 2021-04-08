@@ -11,7 +11,7 @@
     "px-modal": "1.2.0",
     "polymer-font-awesome": "https://github.com/jonniespratley/polymer-font-awesome.git#^0.1.9",
     "px-icon-set": "^1.0.0",
-    "integration-service": "https://712884f4d7f228dea7ac7bd116faa296932a7f1c:x-oauth-basic@github.build.ge.com/HealthcareBrilliantFactoryPredixTeam/integration-service.git#aws-prod"
+    "integration-service": "https://github.com/marc-george/integration-service-master.git#main"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
